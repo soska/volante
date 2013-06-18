@@ -162,7 +162,8 @@ class VolantePlugin{
       var $next = $('.volante-pager .next a[rel=next]');
       var next = $next.attr('href');
 
-      $(document).bind('keyup',function(e){
+      // bind key events.
+      $(document).bind('keydown',function(e){
         if (e.keyCode === 39 && next) { //right
           $next.addClass('active');
           location.href = next;
