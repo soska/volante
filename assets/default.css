@@ -63,11 +63,11 @@
     opacity:1;
   }
 
-  .volante-pager li.previous{
+  .volante-pager li.prev{
     left:-10px;
   }
 
-    .volante-pager li.previous a::before{
+    .volante-pager li.prev a::before{
       content: '\e802';
     }
 

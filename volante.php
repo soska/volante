@@ -33,7 +33,7 @@ class VolantePlugin{
 	  wp_enqueue_script("jquery");
 
 	  if ( $this->style ) {
-      wp_register_style( $this->style, plugins_url( 'styles/' . $this->style . '.css', __FILE__ ) );
+      wp_register_style( $this->style, plugins_url( 'assets/' . $this->style . '.css', __FILE__ ) );
       wp_enqueue_style( $this->style );
 	  }
 
@@ -70,7 +70,7 @@ class VolantePlugin{
       $return = "<ul class='volante-pager volante-pager-archive'>";
 
       if ( $prev ){
-        $return .= "<li class='previous'>$prev</li>";
+        $return .= "<li class='prev'>$prev</li>";
       }
 
       if ( $next ){
@@ -122,7 +122,7 @@ class VolantePlugin{
     $return = "<ul class='volante-pager volante-pager-posts'>";
 
     if ( $next )
-      $return .= "<li class='previous'>$next</li>";
+      $return .= "<li class='prev'>$next</li>";
     if ( $prev )
       $return .= "<li class='next'>$prev</li>";
 
@@ -151,32 +151,28 @@ class VolantePlugin{
   private function script(){
   ?>
     <script type="text/javascript">
-      jQuery(function($,undefined){
-        var $nav = $('ul.volante-pager:first li');
-        var go,to;
+    (function(){
+    /**
+     * Volante-Plugin
+     * (c) 2013 Armando Sosa
+     */
+      // let's cache this values.
+      var $prev = $('.volante-pager .prev a[rel=prev]');
+      var prev = $prev.attr('href');
+      var $next = $('.volante-pager .next a[rel=next]');
+      var next = $next.attr('href');
 
-        $(document).bind('keyup.bootnav',function(e){
-          switch (e.keyCode){
-            case 39: // right
-              to = 'next';
-              break;
-            case 37: // left
-              to = 'previous';
-              break;
-            default:
-              break;
-          }
-          navTo(to);
-        });
-
-        window.navTo = function navTo(to){
-          go = $nav.filter('.'+to).children('a:first');
-          if (go.length) {
-          	go.addClass('active');
-            location.href = go.attr('href');
-          }
+      $(document).bind('keyup',function(e){
+        if (e.keyCode === 39 && next) { //right
+          $next.addClass('active');
+          location.href = next;
+        }else if(e.keyCode === 37 && prev){ // left
+          $prev.addClass('active');
+          location.href = prev;
         }
       });
+
+    })();
     </script>
   <?php
   }
