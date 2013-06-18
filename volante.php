@@ -172,6 +172,15 @@ class VolantePlugin{
         }
       });
 
+      // remove click delay on touch devices.
+      $prev.bind('touchstart',tap);
+      $next.bind('touchstart',tap);
+      function tap(e){
+        console.log(this);
+        location.href = this.href;
+      }
+
+
     })();
     </script>
   <?php
